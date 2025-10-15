@@ -1,3 +1,5 @@
+import { StoreProvider } from "./hooks/useGlobalReducer";
+
 export const initialStore=()=>{
   return{
     allPeople: [
@@ -53,19 +55,47 @@ export const initialStore=()=>{
       }
     ],
     singlePerson: [],
+    allPlanets: [],
+    singlePlanet: [],
+    allVehicles: [],
+    singleVehicle: [],
+    favorites: []
   }
 }
 
 export default function storeReducer(store, action = {}) {
   switch(action.type){
-    case 'add_task':
-
-      const { id,  color } = action.payload
-
+    case 'fetchedAllPeople':
+    {
+      const peopleArray = action.payload;
       return {
         ...store,
-        todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
-      };
+        allPeople: [...peopleArray],
+      }
+    }
+    case 'fetchedAllPlanets':
+    {
+      break;
+    }
+    case 'fetchedAllVehicles':
+    {
+      break;
+    }
+    case 'favedProfile':
+    {
+      const { uid, name } = action.payload;
+
+      if (!store.favorites.some(profile => profile.uid === uid && profile.name === name)) {
+        return {
+          ...store,
+          favorites: [...store.favorites, {uid: uid, name: name}]
+        }
+      }
+      
+      return {
+        ...store
+      }
+    }
     default:
       throw Error('Unknown action.');
   }    

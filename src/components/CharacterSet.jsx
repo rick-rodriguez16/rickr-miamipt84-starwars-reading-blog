@@ -5,7 +5,7 @@ export const CharacterSet = ({ allpeople, dispatch }) => {
 
     return (
         <>
-            <div className="row">
+            <div className="row d-flex flex-nowrap overflow-auto">
                 {
                     allpeople.map(person => {
                         return (
