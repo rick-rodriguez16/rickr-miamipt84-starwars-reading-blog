@@ -1,6 +1,6 @@
 import { StoreProvider } from "./hooks/useGlobalReducer";
 
-export const initialStore=()=>{
+export const initialStore = () => {
   return{
     allPeople: [
       {
@@ -73,6 +73,14 @@ export default function storeReducer(store, action = {}) {
         allPeople: [...peopleArray],
       }
     }
+    case 'fetchedSinglePerson':
+    {
+      const personObj = action.payload;
+      return {
+        ...store,
+        singlePerson: [personObj]
+      }
+    }
     case 'fetchedAllPlanets':
     {
       break;
@@ -100,7 +108,7 @@ export default function storeReducer(store, action = {}) {
     {
       const { name } = action.payload;
       const filteredArray = store.favorites.filter(favorite => favorite.name !== name);
-      
+
       return {
         ...store,
         favorites: [...filteredArray]
